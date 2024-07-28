@@ -1,0 +1,488 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <title>Credit Predict - About Us</title>
+    <style>
+      body {
+        background-color: #0a192f;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
+      .background-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        perspective: 1000px;
+        transform-style: preserve-3d;
+        animation: rotateBackground 20s infinite linear;
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .content-wrapper {
+        position: relative;
+        z-index: 1;
+        overflow-y: auto;
+        height: 100vh;
+      }
+
+      .content-wrapper::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      .content-wrapper::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .content-wrapper::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 5px;
+      }
+
+      .content-wrapper::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      .background-plane {
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background-image: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.05) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.05) 1px,
+            transparent 1px
+          );
+        background-size: 50px 50px;
+        transform-style: preserve-3d;
+      }
+
+      .background-plane:nth-child(1) {
+        transform: translateZ(-400px) rotateX(60deg);
+      }
+      .background-plane:nth-child(2) {
+        transform: translateZ(-300px) rotateX(45deg);
+      }
+      .background-plane:nth-child(3) {
+        transform: translateZ(-200px) rotateX(30deg);
+      }
+      .background-plane:nth-child(4) {
+        transform: translateZ(-100px) rotateX(15deg);
+      }
+
+      @keyframes rotateBackground {
+        0% {
+          transform: rotateX(0deg) rotateY(0deg);
+        }
+        100% {
+          transform: rotateX(360deg) rotateY(360deg);
+        }
+      }
+
+      .particle {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background: radial-gradient(circle, #ffffff, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .bg-gray-900 {
+        background-color: rgba(17, 24, 39, 0.7);
+      }
+
+      .bg-gray-800 {
+        background-color: rgba(31, 41, 55, 0.7);
+      }
+
+      .bg-indigo-500 {
+        background-color: rgba(2, 3, 93, 0.7);
+      }
+
+      .bg-indigo-600:hover {
+        background-color: rgba(79, 70, 229, 0.7);
+      }
+
+      .feature-box {
+        transition: all 0.3s ease;
+        transform-style: preserve-3d;
+        background: linear-gradient(
+          45deg,
+          rgba(0, 93, 13, 0.7),
+          rgba(6, 185, 225, 0.7)
+        );
+        box-shadow: 0 10px 20px rgba(5, 161, 239, 0.2);
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        perspective: 1000px;
+      }
+
+      .feature-box:hover {
+        transform: perspective(1000px) rotateX(5deg) rotateY(5deg) scale(1.05);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotateX(0) rotateY(0);
+        }
+        50% {
+          transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+        }
+      }
+
+      .feature-box {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .feature-content {
+        transform: translateZ(30px);
+        transition: all 0.3s ease;
+      }
+
+      .feature-box:hover .feature-content {
+        transform: translateZ(50px);
+      }
+
+      .team-member {
+        perspective: 1000px;
+        transform-style: preserve-3d;
+        transition: transform 0.5s;
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+      }
+
+      .image-frame {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.5s, box-shadow 0.5s;
+      }
+
+      .image-frame::before {
+        content: "";
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        background: linear-gradient(45deg, #ff00ff, #00ffff);
+        z-index: -1;
+        border-radius: 50%;
+        transform: translateZ(-10px);
+        transition: opacity 0.3s;
+        opacity: 0;
+      }
+
+      .team-member:hover .image-frame {
+        transform: translateZ(50px) rotateX(20deg) rotateY(20deg);
+        box-shadow: 0 0 30px rgba(255, 0, 255, 0.8),
+          0 0 60px rgba(0, 255, 255, 0.8);
+      }
+
+      .team-member:hover .image-frame::before {
+        opacity: 1;
+      }
+
+      .team-member img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+
+  <body class="text-gray-400">
+    <div class="background-container">
+      <div class="background-plane"></div>
+      <div class="background-plane"></div>
+      <div class="background-plane"></div>
+      <div class="background-plane"></div>
+    </div>
+
+    <div class="content-wrapper">
+      <header class="bg-gray-800 bg-opacity-95 body-font font-bold">
+        <div
+          class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center"
+        >
+          <a
+            href="index.html"
+            class="flex title-font font-medium items-center text-white mb-4 md:mb-0"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+              ></path>
+            </svg>
+            <span class="ml-3 text-xl">Credit Predict</span>
+          </a>
+          <nav
+            class="md:ml-auto flex flex-wrap items-center text-base justify-center"
+          >
+            <a href="/" class="mr-5 hover:text-white cursor-pointer">Home</a>
+            <a
+              href="/#loan-prediction-section"
+              class="mr-5 hover:text-white cursor-pointer"
+              >Loan Prediction</a
+            >
+            <a
+              href="/#credit-scoring-section"
+              class="mr-5 hover:text-white cursor-pointer"
+              >Credit Scoring</a
+            >
+            <a href="about" class="mr-5 hover:text-white cursor-pointer"
+              >About</a
+            >
+            <a href="#" class="mr-5 hover:text-white cursor-pointer">Github</a>
+          </nav>
+        </div>
+      </header>
+
+      <section class="text-gray-400 body-font">
+        <div class="container px-5 py-24 mx-auto flex flex-wrap">
+          <div class="lg:w-1/2 w-full mb-10 lg:mb-0">
+            <h1
+              class="sm:text-3xl text-2xl font-medium title-font text-white mb-4"
+            >
+              About Us
+            </h1>
+            <p class="text-base leading-relaxed xl:w-3/4">
+              We are a group of tech enthusiasts who love to explore new
+              technologies. Our team consists of people with different
+              backgrounds ranging from AI/ML to Web3. We love participating in
+              hackathons and building stuff. It helps us put our knowledge to
+              use and provides a great learning experience. We look forward to
+              participating in this HumanAIze Hackathon and networking with all
+              the amazing mentors and other participants.
+            </p>
+          </div>
+          <div class="lg:w-1/2 w-full">
+            <div class="flex flex-wrap -m-4 justify-start">
+              <div class="lg:w-1/2 md:w-1/2 w-full p-4">
+                <div
+                  class="feature-box bg-gray-800 bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative"
+                >
+                  <div class="feature-content">
+                    <h2
+                      class="tracking-widest text-xs title-font font-medium text-gray-500 mb-1"
+                    >
+                      OUR TEAM
+                    </h2>
+                    <h1
+                      class="title-font sm:text-2xl text-xl font-medium text-white mb-3"
+                    >
+                      Tech Enthusiasts
+                    </h1>
+                    <p class="leading-relaxed mb-3">
+                      Our team members come from various technological
+                      backgrounds and bring a wealth of experience to the table.
+                      We thrive on innovation and teamwork.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="lg:w-1/2 md:w-1/2 w-full p-4">
+                <div
+                  class="feature-box bg-gray-800 bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative"
+                >
+                  <div class="feature-content">
+                    <h2
+                      class="tracking-widest text-xs title-font font-medium text-gray-500 mb-1"
+                    >
+                      HACKATHON
+                    </h2>
+                    <h1
+                      class="title-font sm:text-2xl text-xl font-medium text-white mb-3"
+                    >
+                      Building Stuff
+                    </h1>
+                    <p class="leading-relaxed mb-3">
+                      We actively participate in hackathons, building innovative
+                      solutions and learning from each experience. It's a great
+                      way to put our skills to the test.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="text-gray-400 body-font">
+        <div class="container px-5 py-24 mx-auto">
+          <div class="flex flex-wrap -m-4 justify-center">
+            <div class="lg:w-1/4 md:w-1/2 p-4">
+              <div class="team-member text-center">
+                <div class="image-frame flex justify-center mb-4">
+                  <img
+                    alt="team member"
+                    class="object-cover object-center w-full h-full block"
+                    src="{% static 'image/saumilya.jpg' %}"
+                  />
+                </div>
+                <div class="text-xl font-bold">Saumilya Gupta</div>
+              </div>
+            </div>
+            <div class="lg:w-1/4 md:w-1/2 p-4">
+              <div class="team-member text-center">
+                <div class="image-frame flex justify-center mb-4">
+                  <img
+                    alt="team member "
+                    class="object-cover object-center w-full h-full block"
+                    src="{% static 'image/shasvat.jpg' %}"
+                  />
+                </div>
+                <div class="text-xl font-bold">Shashvat Singh</div>
+              </div>
+            </div>
+            <div class="lg:w-1/4 md:w-1/2 p-4">
+              <div class="team-member text-center">
+                <div class="image-frame flex justify-center mb-4">
+                  <img
+                    alt="team member flex justify-center mb-4"
+                    class="object-cover object-center w-full h-full block"
+                    src="{% static 'image/vasu.jpg' %}"
+                  />
+                </div>
+                <div class="text-xl font-bold">Aditya Kumar</div>
+              </div>
+            </div>
+            <div class="lg:w-1/4 md:w-1/2 p-4 mx-auto">
+              <div class="team-member text-center">
+                <div class="image-frame flex justify-center mb-4">
+                  <img
+                    alt="team member"
+                    class="object-cover object-center w-64 h-64 rounded-full"
+                    src="{% static 'image/harsh.jpg' %}"
+                  />
+                </div>
+                <div class="text-xl font-bold">Harsh Krishnan</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const teamMembers = document.querySelectorAll(".team-member");
+        const container = document.querySelector(".background-container");
+        const particleCount = 100;
+
+        teamMembers.forEach((member) => {
+          member.addEventListener("mousemove", (e) => {
+            const { left, top, width, height } = member.getBoundingClientRect();
+            const x = (e.clientX - left) / width - 0.5;
+            const y = (e.clientY - top) / height - 0.5;
+
+            const rotateX = y * 30;
+            const rotateY = -x * 30;
+
+            member.querySelector(
+              ".image-frame"
+            ).style.transform = `translateZ(50px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+            const hue = (x + 0.5) * 360;
+            const saturation = 100;
+            const lightness = 50 + y * 20;
+
+            member.querySelector(
+              ".image-frame"
+            ).style.boxShadow = `0 0 30px hsl(${hue}, ${saturation}%, ${lightness}%),
+                         0 0 60px hsl(${
+                           hue + 180
+                         }, ${saturation}%, ${lightness}%)`;
+          });
+
+          member.addEventListener("mouseleave", () => {
+            member.querySelector(".image-frame").style.transform =
+              "translateZ(0) rotateX(0) rotateY(0)";
+            member.querySelector(".image-frame").style.boxShadow = "none";
+          });
+        });
+
+        for (let i = 0; i < particleCount; i++) {
+          createParticle();
+        }
+
+        function createParticle() {
+          const particle = document.createElement("div");
+          particle.classList.add("particle");
+
+          const size = Math.random() * 5 + 2;
+          particle.style.width = `${size}px`;
+          particle.style.height = `${size}px`;
+
+          resetParticle(particle);
+
+          container.appendChild(particle);
+
+          animateParticle(particle);
+        }
+
+        function resetParticle(particle) {
+          particle.style.left = `${Math.random() * 100}%`;
+          particle.style.top = `${Math.random() * 100}%`;
+          particle.style.transform = `translateZ(${Math.random() * -500}px)`;
+        }
+
+        function animateParticle(particle) {
+          const duration = Math.random() * 10 + 5;
+          const keyframes = [
+            { transform: particle.style.transform, opacity: 1 },
+            { transform: `translateZ(400px)`, opacity: 0 },
+          ];
+
+          const animation = particle.animate(keyframes, {
+            duration: duration * 1000,
+            easing: "linear",
+            iterations: Infinity,
+          });
+
+          animation.onfinish = () => {
+            resetParticle(particle);
+            animateParticle(particle);
+          };
+        }
+      });
+    </script>
+  </body>
+</html>
